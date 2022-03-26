@@ -5,14 +5,10 @@ on:
       - master
 name: build-and-deploy
 
-
 jobs:
-  stages:
-    - build
-    - deploy
   build:
     timeout-minutes: 5
-    name: Build
+    name: Build & Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,11 +19,6 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build # will run `yarn build` command
-  deploy:
-    timeout-minutes: 5
-    name: Deploy
-    runs-on: ubuntu-latest
-    steps:
       - name: Run deploy script
         run: |
           git config user.name "kniazevgeny" && git config user.email "eugene.kniazev@gmail.com"
