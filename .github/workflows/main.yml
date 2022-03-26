@@ -5,6 +5,10 @@ on:
       - master
 name: build-and-deploy
 
+stages:
+  - build
+  - deploy
+
 jobs:
   build:
     timeout-minutes: 5
@@ -19,7 +23,7 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build # will run `yarn build` command
-  daploy:
+  deploy:
     timeout-minutes: 5
     name: Deploy
     runs-on: ubuntu-latest
