@@ -3,6 +3,9 @@
   // Main content
   h1 Charging Session
   Gmaps
+  h2.pt-6 current charging speed
+  h2.pt-3 cost
+
   //- v-sparkline(:value='sparklineValue', smooth, auto-draw)
 </template>
 
