@@ -29,7 +29,7 @@
     "@prettier/plugin-pug": "^1.13.5",
     "@vue/cli-plugin-typescript": "^4.5.11",
     "@vue/cli-service": "^4.5.11",
-    "execa": "5.1",
+    "execa": "5.0",
     "prettier": "prettier/prettier#cd2b8a32b5ef77eb0047e7517b1ea22d605a094a",
     "sass": "^1.32.8",
     "sass-loader": "10.1.1",
