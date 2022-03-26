@@ -31,7 +31,7 @@ import { loaded } from 'vue2-google-maps'
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: process.env.VUE_APP_GMAPSKEY, //or paste your api key here
+    key: 'AIzaSyA7qRhh7CI_foQk6Xg0zZCqUCWBuIu5vZA', //or paste your api key here
     //to create local env vars, create .env.local file in root folder, then add VUE_APP_*=value
     //libraries: Geocoder,
     v: '3.48',
