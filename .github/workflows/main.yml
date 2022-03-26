@@ -6,7 +6,7 @@ on:
 name: build
 
 jobs:
-  build:
+  build-and-deploy:
     timeout-minutes: 5
     name: Build
     runs-on: ubuntu-latest
@@ -22,20 +22,8 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build # will run `yarn build` command
-  gh-pages-deploy:
-    name: Deploying to gh-pages
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup Node.js for use with actions
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
       - name: Checkout branch
         uses: actions/checkout@v2
-
-      - name: Clean install dependencies
-        run: npm ci
-
       - name: Run deploy script
         run: |
           git config user.name "kniazevgeny" && git config user.email "eugene.kniazev@gmail.com"
