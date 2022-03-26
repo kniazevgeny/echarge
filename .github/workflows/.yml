@@ -8,7 +8,7 @@ on:
 
   build:
     timeout-minutes: 5
-    name: Test
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
