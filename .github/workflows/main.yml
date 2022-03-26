@@ -17,7 +17,7 @@ jobs:
         with:
           cmd: install # will run `yarn install` command
       - name: Create .env file
-        run: echo VUE_APP_GMAPSKEY=${{VUE_APP_GMAPSKEY}} >> .env 
+        run: echo $VUE_APP_GMAPSKEY | tr " " "\n" >> .env
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build # will run `yarn build` command
