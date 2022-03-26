@@ -19,8 +19,6 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build # will run `yarn build` command
-      - name: Checkout branch
-        uses: actions/checkout@v2
       - name: Run deploy script
         run: |
           git config user.name "kniazevgeny" && git config user.email "eugene.kniazev@gmail.com"
