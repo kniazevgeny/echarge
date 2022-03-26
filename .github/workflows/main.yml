@@ -5,11 +5,11 @@ on:
       - master
 name: build-and-deploy
 
-stages:
-  - build
-  - deploy
 
 jobs:
+  stages:
+    - build
+    - deploy
   build:
     timeout-minutes: 5
     name: Build
