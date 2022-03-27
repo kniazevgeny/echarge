@@ -8,23 +8,23 @@
       v-flex(xs8)
         .block
           h4 battery %
-      v-flex.pl-3.pr-0(xs4)
+      v-flex.pl-2.pr-0(xs4)
+        .block#cost
+          h4 25.5$
+    v-layout#row-2.mt-2(row, :style='"opacity:" + opacity')
+      v-flex.pl-0.pr-2(xs4)
         .block
-          h4 cost
-    v-layout#row-2.mt-3(row, :style='"opacity:" + opacity')
-      v-flex.pl-0.pr-3(xs4)
-        .block
-          h4.pt-6 current charging speed
+          h4 current charging speed
       v-flex(xs4)
         .block
-          h4.pt-6 energy delivered
-      v-flex.pl-3.pr-0(xs4)
+          h4 energy delivered
+      v-flex.pl-2.pr-0(xs4)
         .block
-          h4.pt-6 CO2 emissions savings
-    v-layout#row-3.mt-3(row, :style='"opacity:" + opacity')
-      v-flex.pl-0.pr-3(xs4)
-        .block
-          h4.pt-6 * mins until full charge
+          h4 CO2 emissions savings
+    v-layout#row-3.mt-2(row, :style='"opacity:" + opacity')
+      v-flex.pl-0.pr-2(xs4)
+        .block#inverted
+          h4 # mins until full charge
       v-flex(xs8)
         .block
           v-sparkline(
@@ -100,19 +100,39 @@ export default class Home extends Vue {
 
 <style>
 .block {
-  background: #ddd;
+  background: #eee;
   border-radius: 15px;
   padding: 10px;
   height: 100%;
   width: 100%;
+  display: flex;
+  /* neumorphic shadows & background */
+  /* background: linear-gradient(145deg, #ffffff, #d6d6d6); */
+  /* box-shadow:  6px 6px 12px #e4e4e4, */
+             /* -6px -6px 12px #f8f8f8; */
 }
 .block > svg {
   /* Sparkline*/
   height: 100%;
   width: 100%;
 }
+.block > h4 {
+  margin: 0;
+  align-self: center;
+  justify-self: center;
+}
+#inverted {
+  background: #333;
+  color: white;
+}
+#cost > h4 {
+  font-size: 2rem;
+  background: -webkit-linear-gradient(135deg, #2af, #3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .row {
-  height: 17vh;
+  height: 16vh;
   width: 100%;
   margin: 0 !important;
   animation: fadeIn 0.6s;
