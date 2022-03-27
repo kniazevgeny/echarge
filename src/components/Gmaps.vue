@@ -5,7 +5,7 @@ div
     :center='mapCenter',
     :zoom='mapZoom',
     ref='mapRef',
-    style='height: 30vh; clear: left; z-index: 1; bottom: 0'
+    style='height: 25vh; clear: left; z-index: 1; bottom: 0'
   )
     gmap-marker(
       v-for='(m, i) in markers',
@@ -75,9 +75,6 @@ export default class Gmaps extends Vue {
 </script>
 
 <style>
-.gm-fullscreen-control {
-  display: none;
-}
 .gm-style-iw.gm-style-iw-c {
   position: fixed;
   width: 250px;
