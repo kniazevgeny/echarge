@@ -2,16 +2,16 @@
 .v-container.pa-4
   // Main content
   h1 Charging Session
-  Gmaps.mt-3
+  Gmaps#map.mt-3
   v-layout.mt-6(column)
-    v-layout(row)
+    v-layout#row-1(row, :style='"opacity:" + opacity')
       v-flex(xs8)
         .block
           h4 battery %
       v-flex.pl-3.pr-0(xs4)
         .block
           h4 cost
-    v-layout.mt-3(row)
+    v-layout#row-2.mt-3(row, :style='"opacity:" + opacity')
       v-flex.pl-0.pr-3(xs4)
         .block
           h4.pt-6 current charging speed
@@ -21,7 +21,7 @@
       v-flex.pl-3.pr-0(xs4)
         .block
           h4.pt-6 CO2 emissions savings
-    v-layout.mt-3(row)
+    v-layout#row-3.mt-3(row, :style='"opacity:" + opacity')
       v-flex.pl-0.pr-3(xs4)
         .block
           h4.pt-6 * mins until full charge
@@ -34,7 +34,7 @@
             auto-draw,
             :line-width='10',
             stroke-linecap='round',
-            :gradient="gradient"
+            :gradient='gradient'
           )
 </template>
 
@@ -62,10 +62,20 @@ export default class Home extends Vue {
   isSparklineReady = false
   gradient = ['#f72047', '#ffd200', '#1feaea']
 
+  opacity = 0
+
   mounted() {
+    // Set opcaity while animation is on
+    window.setTimeout(() => {
+      this.opacity = 1
+    }, 500)
+
+    // Animate Sparkline
     window.setTimeout(() => {
       this.isSparklineReady = true
-    }, 250)
+    }, 550)
+
+    // Update Sparkline
     window.setTimeout(() => {
       window.setInterval(() => {
         if (this.sparklineValue[this.sparklineValue.length - 1] > 16) return
@@ -81,7 +91,7 @@ export default class Home extends Vue {
   @Watch('sparklineValue')
   onSparklineValueChange() {
     if (this.sparklineValue[this.sparklineValue.length - 1] > 16) {
-      window.clearInterval();
+      window.clearInterval()
       this.gradient = ['#2af', '#3ff']
     }
   }
@@ -105,5 +115,37 @@ export default class Home extends Vue {
   height: 17vh;
   width: 100%;
   margin: 0 !important;
+  animation: fadeIn 0.6s;
+  opacity: 0;
+}
+#row-1 {
+  animation-delay: 0.2s;
+}
+#row-2 {
+  animation-delay: 0.35s;
+}
+#row-3 {
+  animation-delay: 0.5s;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
 }
 </style>
