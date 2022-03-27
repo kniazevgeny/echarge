@@ -4,28 +4,28 @@
   h1 Charging Session
   Gmaps#map.mt-3
   v-layout.mt-6(column)
-    v-layout#row-1(row, :style='"opacity:" + opacity')
-      v-flex(xs8)
+    v-row#row-1(:style='"opacity:" + opacity')
+      .wide
         .block
           h4 battery %
-      v-flex.pl-2.pr-0(xs4)
-        .block#cost
+      div
+        #cost.block
           h4 25.5$
-    v-layout#row-2.mt-2(row, :style='"opacity:" + opacity')
-      v-flex.pl-0.pr-2(xs4)
+    v-row#row-2(:style='"opacity:" + opacity')
+      div
         .block
           h4 current charging speed
-      v-flex(xs4)
+      div
         .block
           h4 energy delivered
-      v-flex.pl-2.pr-0(xs4)
+      div
         .block
           h4 CO2 emissions savings
-    v-layout#row-3.mt-2(row, :style='"opacity:" + opacity')
-      v-flex.pl-0.pr-2(xs4)
-        .block#inverted
+    v-row#row-3(:style='"opacity:" + opacity')
+      div
+        #inverted.block
           h4 # mins until full charge
-      v-flex(xs8)
+      .wide
         .block
           v-sparkline(
             v-if='isSparklineReady',
@@ -79,10 +79,10 @@ export default class Home extends Vue {
     window.setTimeout(() => {
       window.setInterval(() => {
         if (this.sparklineValue[this.sparklineValue.length - 1] > 16) return
-        let factor = Math.random() / 1.3 + 0.45
+        let factor = Math.random() + 0.5
         this.sparklineValue.push(
           this.sparklineValue[this.sparklineValue.length - 1] *
-            (factor < 1 ? 1.05 : factor)
+            (factor < 1 ? 1.15 : factor)
         )
       }, 3000)
     }, 700)
@@ -99,17 +99,20 @@ export default class Home extends Vue {
 </script>
 
 <style>
+.column {
+  --gap: 7px;
+  gap: var(--gap);
+}
 .block {
   background: #eee;
   border-radius: 15px;
   padding: 10px;
   height: 100%;
-  width: 100%;
   display: flex;
   /* neumorphic shadows & background */
   /* background: linear-gradient(145deg, #ffffff, #d6d6d6); */
   /* box-shadow:  6px 6px 12px #e4e4e4, */
-             /* -6px -6px 12px #f8f8f8; */
+  /* -6px -6px 12px #f8f8f8; */
 }
 .block > svg {
   /* Sparkline*/
@@ -132,11 +135,19 @@ export default class Home extends Vue {
   -webkit-text-fill-color: transparent;
 }
 .row {
-  height: 16vh;
+  height: calc(100vw / 3.35);
   width: 100%;
   margin: 0 !important;
   animation: fadeIn 0.6s;
   opacity: 0;
+  gap: var(--gap);
+  flex-wrap: nowrap !important;
+}
+.row > .wide {
+  flex: 2;
+}
+.row > div:not(.wide) {
+  flex: 1;
 }
 #row-1 {
   animation-delay: 0.2s;
