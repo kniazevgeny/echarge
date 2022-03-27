@@ -50,15 +50,15 @@ Vue.use(VueGoogleMaps, {
 export default class Gmaps extends Vue {
   mapMode = 0
   mapTheme = 0
-  mapCenter = { lat: 34.0024694, lng: -118.288427 }
-  mapZoom = 13
+  mapCenter = { lat: 33.9228, lng: -118.3304 }
+  mapZoom = 12
   google = true
   markers = [
     {
       full_name: 'Erich  Kunze',
       position: {
-        lat: 34.0024694,
-        lng: -118.288427,
+        lat: 33.9228,
+        lng: -118.3304,
       },
     },
   ]
