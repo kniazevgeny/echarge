@@ -7,6 +7,7 @@ import Vuetify, {
   VFlex,
   VLayout,
   VSnackbar,
+  VSparkline,
   VMain,
 } from 'vuetify/lib'
 import 'vuetify/dist/vuetify.min.css'
@@ -20,6 +21,7 @@ Vue.use(Vuetify, {
     VFlex,
     VLayout,
     VSnackbar,
+    VSparkline,
     VMain,
   },
 })
