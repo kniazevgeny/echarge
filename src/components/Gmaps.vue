@@ -8,13 +8,13 @@ div
     style='height: 30vh; clear: left; z-index: 1; bottom: 0'
   )
     gmap-marker(
-        v-for='(m, i) in markers',
-        :key='i',
-        :position='m.position',
-        :clickable='true',
+      v-for='(m, i) in markers',
+      :key='i',
+      :position='m.position',
+      :clickable='true',
+      :icon='getIcon()'
     )
     //- @click='toggleInfoWindow(m, i)',
-    //- :icon='getIcon(m)'
   //- gmap-info-window(:position='infoWindowPos', :opened='infoWinOpen', @closeclick='infoWinOpen=false', :options='infoOptions')
 </template>
 
@@ -35,7 +35,7 @@ Vue.use(VueGoogleMaps, {
     //to create local env vars, create .env.local file in root folder, then add VUE_APP_*=value
     //libraries: Geocoder,
     v: '3.48',
-    language: 'en'
+    language: 'en',
   },
   // Demonstrating how we can customize the name of the components
   installComponents: false,
@@ -62,6 +62,15 @@ export default class Gmaps extends Vue {
       },
     },
   ]
+  getIcon() {
+    return {
+      url: require('@/assets/echarge_marker.svg'),
+      scaledSize: {
+        height: 60,
+        width: 60,
+      },
+    }
+  }
 }
 </script>
 
