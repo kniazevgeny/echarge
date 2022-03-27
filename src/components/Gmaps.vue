@@ -80,10 +80,6 @@ export default class Gmaps extends Vue {
   width: 250px;
   height: 300px;
 }
-/*   .gm-style-iw-t::after{
-    width: 0px!important;
-    height: 0px!important;
-    }*/
 .gmnoprint {
   display: none;
 }
