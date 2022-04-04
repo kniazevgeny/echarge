@@ -7,10 +7,13 @@
     v-row#row-1(:style='"opacity:" + opacity')
       .wide
         .block
-          h4 battery %
+          #b0
+            #b1
+              #b2
+                #b3 {{ battery }}%
       div
         #cost.block
-          h4 25.5$
+          h4 {{ cost }}$
     v-row#row-2(:style='"opacity:" + opacity')
       div
         .block
@@ -36,6 +39,8 @@
             stroke-linecap='round',
             :gradient='gradient'
           )
+    v-btn(icon, @click='debugTheme()', color='#2af', :disabled='tweenedBattery.toFixed(0)!=100')
+      v-icon mdi-moon-waning-crescent
 </template>
 
 <script lang="ts">
@@ -44,6 +49,7 @@ import Component from 'vue-class-component'
 import { Watch } from 'vue-property-decorator'
 import { i18n } from '@/plugins/i18n'
 import { namespace } from 'vuex-class'
+import gsap from 'gsap'
 
 import Gmaps from '@/components/Gmaps.vue'
 
@@ -64,6 +70,63 @@ export default class Home extends Vue {
 
   opacity = 0
 
+  debugTheme() {
+    // restart animation
+    this.tweenedBattery = 0
+    gsap.to(this.$data, { duration: 10, tweenedBattery: 100 })
+    // change theme
+    let a = getComputedStyle(document.documentElement).getPropertyValue(
+      '--accent'
+    )
+    let b = getComputedStyle(document.documentElement).getPropertyValue(
+      '--background'
+    )
+    document.body.style.setProperty('--accent', b)
+    document.body.style.setProperty('--background', a)
+  }
+
+  tweenedBattery = 1
+  get battery() {
+    let b = this.tweenedBattery.toFixed(0).toString()
+    // update gradient position
+    document
+      .getElementById('b1')
+      ?.style.setProperty(
+        '--gradient-start',
+        (this.tweenedBattery - 1).toFixed(5).toString() + '%'
+      )
+    document
+      .getElementById('b1')
+      ?.style.setProperty(
+        '--gradient-end',
+        this.tweenedBattery.toFixed(5).toString() + '%'
+      )
+    // update gradient color
+    document
+      .getElementById('b1')
+      ?.style.setProperty(
+        '--gradient-hue',
+        this.tweenedBattery.toFixed(3).toString()
+      )
+    document
+      .getElementById('b1')
+      ?.style.setProperty(
+        '--gradient-saturation',
+        (90 - this.tweenedBattery / 5).toFixed(3).toString() + '%'
+      )
+
+    // return value
+    if (b.length == 3) return b[0] + b[1] + ' ' + b[2] + ' '
+    if (b.length == 1) return b[0] + ' '
+    if (b.length > 1 && b[0] == '1') return b + ' '
+    return b[0] + ' ' + b[1] + ' '
+  }
+
+  tweenedCost = 0
+  get cost() {
+    return this.tweenedCost.toFixed(1)
+  }
+
   mounted() {
     // Set opcaity while animation is on
     window.setTimeout(() => {
@@ -73,19 +136,21 @@ export default class Home extends Vue {
     // Animate Sparkline
     window.setTimeout(() => {
       this.isSparklineReady = true
-    }, 550)
+    }, 850)
 
     // Update Sparkline
     window.setTimeout(() => {
       window.setInterval(() => {
         if (this.sparklineValue[this.sparklineValue.length - 1] > 16) return
-        let factor = Math.random() + 0.5
+        let factor = Math.random() + 0.55
         this.sparklineValue.push(
           this.sparklineValue[this.sparklineValue.length - 1] *
             (factor < 1 ? 1.15 : factor)
         )
-      }, 3000)
-    }, 700)
+      }, 2200)
+      gsap.to(this.$data, { duration: 10, tweenedCost: 5 })
+      gsap.to(this.$data, { duration: 10, tweenedBattery: 100 })
+    }, 1200)
   }
 
   @Watch('sparklineValue')
@@ -127,6 +192,9 @@ export default class Home extends Vue {
 #inverted {
   background: #333;
   color: white;
+}
+#cost {
+  justify-content: center;
 }
 #cost > h4 {
   font-size: 2rem;
@@ -178,5 +246,81 @@ export default class Home extends Vue {
     opacity: 1;
     transform: translateY(0%);
   }
+}
+:root {
+  --background: #333;
+  --accent: #eee;
+}
+#row-1 > .wide > .block {
+  background: var(--background);
+}
+#b0 {
+  border: solid 3.5px var(--background);
+  width: 100%;
+  position: relative;
+  margin-left: -5px;
+}
+#b0::before {
+  position: absolute;
+  content: '';
+  /* width: 100%; */
+  aspect-ratio: 1;
+  border-radius: 6px;
+  right: -5%;
+  z-index: 0;
+  margin: 0;
+  /* bottom: 0; */
+  /* padding-top: 10px; */
+  margin-top: 17.5%;
+  /* margin-bottom: 12.5%; */
+  /* top: 0; */
+  height: 25%;
+  background: var(--accent);
+  z-index: 0;
+}
+#b1 {
+  position: relative;
+  border-radius: 20px;
+  --gradient-start: 0%;
+  --gradient-end: 1%;
+  --gradient-hue: 0;
+  --gradient-saturation: 90%;
+  --gradient-color: hsl(var(--gradient-hue), var(--gradient-saturation), 52%);
+  /* color: hsl(0, 90%, 52%);  */
+  /* background: hsl(49, 90%, 52%); */
+  /* text-decoration-color: hsl(104, 55%, 52%); */
+  background: linear-gradient(
+    90deg,
+    var(--gradient-color) var(--gradient-start),
+    var(--background) var(--gradient-end)
+  );
+  transition: 100ms ease-in;
+  border: solid 3px var(--accent);
+  outline: solid 4px var(--background);
+  width: 100%;
+  height: 100%;
+  margin: 1px;
+}
+#b2 {
+  border-radius: 17px;
+  position: absolute;
+  top: 0;
+  border: solid 4px var(--background);
+  bottom: 0;
+  /* margin: 2px; */
+  left: 0;
+  width: auto;
+  right: 0;
+}
+#b3 {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  font-size: 2.5em;
+  font-family: 'helios';
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: -7px;
 }
 </style>
