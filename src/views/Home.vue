@@ -248,8 +248,8 @@ export default class Home extends Vue {
   }
 }
 :root {
-  --background: #333;
-  --accent: #eee;
+  --background: #eee;
+  --accent: #333;
 }
 #row-1 > .wide > .block {
   background: var(--background);
