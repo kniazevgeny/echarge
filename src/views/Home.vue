@@ -81,8 +81,8 @@ export default class Home extends Vue {
     let b = getComputedStyle(document.documentElement).getPropertyValue(
       '--background'
     )
-    document.body.style.setProperty('--accent', b)
-    document.body.style.setProperty('--background', a)
+    document.documentElement.style.setProperty('--accent', b)
+    document.documentElement.style.setProperty('--background', a)
   }
 
   tweenedBattery = 1
