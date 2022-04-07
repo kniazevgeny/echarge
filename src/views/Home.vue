@@ -116,6 +116,7 @@ export default class Home extends Vue {
 
   animate() {
     // adjust location
+    if (window.location.host === 'echargeenergy.com')
     this.$vuetify.goTo('#rec433089158', {
       container: '#allrecords',
       duration: 100,
