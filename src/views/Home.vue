@@ -131,8 +131,15 @@ export default class Home extends Vue {
 
   @Watch('isWindowHashCorrect')
   onLoad(value: boolean) {
-    if (!value) return;
-    
+    if (!value) return
+
+    // adjust location
+    this.$vuetify.goTo('#rec433089158', {
+      container: '#allrecords',
+      duration: 100,
+      easing: 'easeOutCubic',
+    })
+
     // Set opcaity while animation is on
     window.setTimeout(() => {
       this.opacity = 1
