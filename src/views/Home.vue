@@ -110,29 +110,11 @@ export default class Home extends Vue {
     return this.tweenedCost.toFixed(1)
   }
 
-  mounted() {}
-
-  get isWindowHashCorrect() {
-    // return if the button at echarge has been clicked /#rec433089158
-    return (
-      window.location.hash === '#rec433089158' ||
-      window.location.host === 'kniazevgeny.github.io' ||
-      window.location.host === 'localhost'
-    )
+  mounted() {
+    if (window.location.hash === '#rec433089158') this.animate()
   }
 
-  @Watch('sparklineValue')
-  onSparklineValueChange() {
-    if (this.sparklineValue[this.sparklineValue.length - 1] > 16) {
-      window.clearInterval()
-      this.gradient = ['#2af', '#3ff']
-    }
-  }
-
-  @Watch('isWindowHashCorrect')
-  onLoad(value: boolean) {
-    if (!value) return
-
+  animate() {
     // adjust location
     this.$vuetify.goTo('#rec433089158', {
       container: '#allrecords',
@@ -163,6 +145,30 @@ export default class Home extends Vue {
       gsap.to(this.$data, { duration: 10, tweenedCost: 5 })
       gsap.to(this.$data, { duration: 10, tweenedBattery: 100 })
     }, 1200)
+  }
+
+  get isWindowHashCorrect() {
+    // return if the button at echarge has been clicked /#rec433089158
+    return (
+      window.location.hash === '#rec433089158' ||
+      window.location.host === 'kniazevgeny.github.io' ||
+      window.location.host === 'localhost'
+    )
+  }
+
+  @Watch('sparklineValue')
+  onSparklineValueChange() {
+    if (this.sparklineValue[this.sparklineValue.length - 1] > 16) {
+      window.clearInterval()
+      this.gradient = ['#2af', '#3ff']
+    }
+  }
+
+  @Watch('isWindowHashCorrect')
+  onLoad(value: boolean) {
+    if (!value) return
+
+    this.animate()
   }
 }
 </script>
