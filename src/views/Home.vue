@@ -39,8 +39,6 @@
             stroke-linecap='round',
             :gradient='gradient'
           )
-    v-btn(icon, @click='debugTheme()', color='#2af', :disabled='tweenedBattery.toFixed(0)!=100')
-      v-icon mdi-moon-waning-crescent
 </template>
 
 <script lang="ts">
@@ -69,21 +67,6 @@ export default class Home extends Vue {
   gradient = ['#f72047', '#ffd200', '#1feaea']
 
   opacity = 0
-
-  debugTheme() {
-    // restart animation
-    this.tweenedBattery = 0
-    gsap.to(this.$data, { duration: 10, tweenedBattery: 100 })
-    // change theme
-    let a = getComputedStyle(document.documentElement).getPropertyValue(
-      '--accent'
-    )
-    let b = getComputedStyle(document.documentElement).getPropertyValue(
-      '--background'
-    )
-    document.documentElement.style.setProperty('--accent', b)
-    document.documentElement.style.setProperty('--background', a)
-  }
 
   tweenedBattery = 1
   get battery() {
@@ -127,7 +110,29 @@ export default class Home extends Vue {
     return this.tweenedCost.toFixed(1)
   }
 
-  mounted() {
+  mounted() {}
+
+  get isWindowHashCorrect() {
+    // return if the button at echarge has been clicked /#rec433089158
+    return (
+      window.location.hash === '#rec433089158' ||
+      window.location.host === 'kniazevgeny.github.io' ||
+      window.location.host === 'localhost'
+    )
+  }
+
+  @Watch('sparklineValue')
+  onSparklineValueChange() {
+    if (this.sparklineValue[this.sparklineValue.length - 1] > 16) {
+      window.clearInterval()
+      this.gradient = ['#2af', '#3ff']
+    }
+  }
+
+  @Watch('isWindowHashCorrect')
+  onLoad(value: boolean) {
+    if (!value) return;
+    
     // Set opcaity while animation is on
     window.setTimeout(() => {
       this.opacity = 1
@@ -151,14 +156,6 @@ export default class Home extends Vue {
       gsap.to(this.$data, { duration: 10, tweenedCost: 5 })
       gsap.to(this.$data, { duration: 10, tweenedBattery: 100 })
     }, 1200)
-  }
-
-  @Watch('sparklineValue')
-  onSparklineValueChange() {
-    if (this.sparklineValue[this.sparklineValue.length - 1] > 16) {
-      window.clearInterval()
-      this.gradient = ['#2af', '#3ff']
-    }
   }
 }
 </script>
