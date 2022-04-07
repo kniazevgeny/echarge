@@ -113,7 +113,7 @@ export default class Home extends Vue {
   mounted() {
     if (
       window.location.hash === '#rec422536037' ||
-      window.location.host === 'kniazevgeny.github.io' ||
+      window.location.pathname.includes('echarge') ||
       window.location.host === 'localhost:8080'
     )
       this.animate()
@@ -146,7 +146,7 @@ export default class Home extends Vue {
   }
 
   get isWindowHashCorrect() {
-    // return if the button at echarge has been clicked /#rec433089158
+    // return if the button at echarge has been clicked
     return window.location.hash === '#rec422536037'
   }
 
