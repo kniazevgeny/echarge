@@ -111,17 +111,22 @@ export default class Home extends Vue {
   }
 
   mounted() {
-    if (window.location.hash === '#rec433089158') this.animate()
+    if (
+      window.location.hash === '#rec433089158' ||
+      window.location.host === 'kniazevgeny.github.io' ||
+      window.location.host === 'localhost'
+    )
+      this.animate()
   }
 
   animate() {
     // adjust location
     if (window.location.host === 'echargeenergy.com')
-    this.$vuetify.goTo('#rec433089158', {
-      container: '#allrecords',
-      duration: 100,
-      easing: 'easeOutCubic',
-    })
+      this.$vuetify.goTo('#rec433089158', {
+        container: '#allrecords',
+        duration: 100,
+        easing: 'easeOutCubic',
+      })
 
     // Set opcaity while animation is on
     window.setTimeout(() => {
@@ -150,11 +155,7 @@ export default class Home extends Vue {
 
   get isWindowHashCorrect() {
     // return if the button at echarge has been clicked /#rec433089158
-    return (
-      window.location.hash === '#rec433089158' ||
-      window.location.host === 'kniazevgeny.github.io' ||
-      window.location.host === 'localhost'
-    )
+    return window.location.hash === '#rec433089158'
   }
 
   @Watch('sparklineValue')
