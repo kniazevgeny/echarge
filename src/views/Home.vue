@@ -210,7 +210,6 @@ export default class Home extends Vue {
   height: calc(100vw / 3.35);
   width: 100%;
   margin: 0 !important;
-  animation: fadeIn 0.6s;
   opacity: 0;
   gap: var(--gap);
   flex-wrap: nowrap !important;
@@ -220,36 +219,6 @@ export default class Home extends Vue {
 }
 .row > div:not(.wide) {
   flex: 1;
-}
-#row-1 {
-  animation-delay: 0.2s;
-}
-#row-2 {
-  animation-delay: 0.35s;
-}
-#row-3 {
-  animation-delay: 0.5s;
-}
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0%);
-  }
 }
 :root {
   --background: #eee;
