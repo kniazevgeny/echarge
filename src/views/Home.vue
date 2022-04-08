@@ -1,5 +1,7 @@
 <template lang="pug">
-.v-container.pa-4.d-flex.justify-center(style="height: 100%; align-items: center")
+.v-container.pa-4.d-flex.justify-center(
+  style='height: 100%; align-items: center'
+)
   // Main content
   .hidden-md-and-up
     h1.mt-4 Charging Session
@@ -45,8 +47,10 @@
       style='margin: auto; height: 80vh; width: calc(80vh * 0.49); z-index: 10000',
       :src='require("@/assets/mockup-w_x2.png")'
     )
-      div.pa-4.pt-0.pl-6.d-flex.justify-center(style="height: 100%;border-radius: 20px")
-        iframe(scrolling="no" src='https://kniazevgeny.github.io/echarge/')
+      .pa-4.pt-0.pl-6.d-flex.justify-center(
+        style='height: 100%; border-radius: 20px'
+      )
+        iframe(scrolling='no', src='https://kniazevgeny.github.io/echarge/')
 </template>
 
 <script lang="ts">
@@ -312,6 +316,26 @@ iframe {
   height: 100%;
   aspect-ratio: 0.55;
   transform: scale(0.85);
+}
+@media screen and (min-width: 1300px) {
+  iframe {
+    border: none;
+    height: 50%;
+    aspect-ratio: 0.55;
+    /* -webkit-transform: scale(0.85); */
+    transform: scale(1.7);
+    margin-top: 50%;
+  }
+}
+@media screen and (min-height: 1300px) {
+  iframe {
+    border: none;
+    height: 50%;
+    aspect-ratio: 0.55;
+    /* -webkit-transform: scale(0.85); */
+    transform: scale(1.7);
+    margin-top: 50%;
+  }
 }
 #app {
   padding: 1px;
