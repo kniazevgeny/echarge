@@ -45,7 +45,7 @@
       style='margin: auto; height: 80vh; width: calc(80vh * 0.49); z-index: 10000',
       :src='require("@/assets/mockup-w_x2.png")'
     )
-      div.pa-4.pt-0.d-flex.justify-center(style="height: 100%;border-radius: 20px")
+      div.pa-4.pt-0.pl-6.d-flex.justify-center(style="height: 100%;border-radius: 20px")
         iframe(src='/')
 </template>
 
@@ -310,7 +310,10 @@ export default class Home extends Vue {
 iframe {
   border: none;
   height: 100%;
-  aspect-ratio: 0.57;
+  aspect-ratio: 0.55;
   transform: scale(0.85);
+}
+#app {
+  padding: 1px;
 }
 </style>
