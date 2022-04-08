@@ -333,8 +333,8 @@ iframe {
   border: none;
   height: 100%;
   aspect-ratio: 0.5;
-  transform: scale(0.94);
-  border-radius: 20px;
+  transform: scale(0.92);
+  border-radius: 80px;
 }
 .embed > #app {
   padding: 1px;
