@@ -47,7 +47,7 @@
       style='margin: auto; height: 80vh; width: calc(80vh * 0.49); z-index: 10000',
       :src='require("@/assets/mockup-w_x2.png")'
     )
-      .pa-4.pt-0.d-flex.justify-center(
+      .pa-4.pt-8.d-flex.justify-center(
         style='height: 100%; border-radius: 20px'
       )
         iframe.embed(scrolling='no', src='https://kniazevgeny.github.io/echarge/')
@@ -128,7 +128,7 @@ export default class Home extends Vue {
       window.location.pathname.includes('echarge') ||
       window.location.host === 'localhost:8080'
     )
-      this.animate()
+      window.setTimeout(this.animate, 500)
   }
 
   animate() {
@@ -174,7 +174,7 @@ export default class Home extends Vue {
   onLoad(value: boolean) {
     if (!value) return
 
-    this.animate()
+    window.setTimeout(this.animate, 500)
   }
 }
 </script>
@@ -314,8 +314,8 @@ export default class Home extends Vue {
 iframe {
   border: none;
   height: 100%;
-  aspect-ratio: 0.475;
-  transform: scale(.97);
+  aspect-ratio: 0.5;
+  transform: scale(.96);
 }
 .embed > #app {
   padding: 1px;
