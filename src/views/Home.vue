@@ -328,14 +328,13 @@ export default class Home extends Vue {
   color: var(--accent);
   letter-spacing: -7px;
 }
-.v-image__image {
-  z-index: 1000 !important;
-}
+
 iframe {
   border: none;
   height: 100%;
   aspect-ratio: 0.5;
-  transform: scale(0.96);
+  transform: scale(0.94);
+  border-radius: 20px;
 }
 .embed > #app {
   padding: 1px;
