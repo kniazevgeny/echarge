@@ -50,7 +50,7 @@
       .pa-4.pt-0.d-flex.justify-center(
         style='height: 100%; border-radius: 20px'
       )
-        iframe.embed(scrolling='no', src='/')
+        iframe.embed(scrolling='no', src='https://kniazevgeny.github.io/echarge/')
 </template>
 
 <script lang="ts">
@@ -314,8 +314,8 @@ export default class Home extends Vue {
 iframe {
   border: none;
   height: 100%;
-  aspect-ratio: 0.5;
-  transform: scale(0.92);
+  aspect-ratio: 0.475;
+  transform: scale(.97);
 }
 .embed > #app {
   padding: 1px;
