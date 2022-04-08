@@ -320,21 +320,15 @@ iframe {
 @media screen and (min-width: 1300px) {
   iframe {
     border: none;
-    height: 70%;
+    height: 100%;
     aspect-ratio: 0.55;
-    /* -webkit-transform: scale(0.85); */
-    transform: scale(1.2);
-    margin-top: 37.5%;
   }
 }
 @media screen and (min-height: 1300px) {
   iframe {
     border: none;
-    height: 70%;
+    height: 100%;
     aspect-ratio: 0.55;
-    /* -webkit-transform: scale(0.85); */
-    transform: scale(1.2);
-    margin-top: 37.5%;
   }
 }
 #app {
