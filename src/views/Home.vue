@@ -50,7 +50,7 @@
       .pa-4.pt-0.pl-6.d-flex.justify-center(
         style='height: 100%; border-radius: 20px'
       )
-        iframe(scrolling='no', src='https://kniazevgeny.github.io/echarge/')
+        iframe.embed(scrolling='no', src='https://kniazevgeny.github.io/echarge/')
 </template>
 
 <script lang="ts">
@@ -331,7 +331,7 @@ iframe {
     aspect-ratio: 0.55;
   }
 }
-#app {
+.embed > #app {
   padding: 1px;
 }
 </style>
