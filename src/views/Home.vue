@@ -42,7 +42,7 @@
               stroke-linecap='round',
               :gradient='gradient'
             )
-  .hidden-sm-and-down
+  .hidden-sm-and-down.mt-n12
     v-img(
       style='margin: auto; height: 80vh; width: calc(80vh * 0.49); z-index: 10000',
       :src='require("@/assets/mockup-w_x2.png")'
