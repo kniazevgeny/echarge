@@ -1,9 +1,11 @@
 <template lang="pug">
 .v-container.pa-4.d-flex.justify-center(
-  style='height: 100%; align-items: center'
+  style='height: 100vh; align-items: center'
 )
   // Main content
-  .hidden-md-and-up
+  .hidden-md-and-up(
+    :style='$vuetify.breakpoint.name === "sm" ? "margin: 0 21%; transform: scale(1.25)" : ""'
+  )
     h1 Charging Session
     Gmaps#map.mt-6
     v-layout.mt-6(column)
@@ -50,7 +52,10 @@
       .pa-4.pt-8.d-flex.justify-center(
         style='height: 100%; border-radius: 20px'
       )
-        iframe.embed(scrolling='no', src='https://kniazevgeny.github.io/echarge/')
+        iframe.embed(
+          scrolling='no',
+          src='https://kniazevgeny.github.io/echarge/'
+        )
 </template>
 
 <script lang="ts">
@@ -226,6 +231,16 @@ export default class Home extends Vue {
   gap: var(--gap);
   flex-wrap: nowrap !important;
 }
+@media screen and (min-width: 600px) and (max-width: 960px) {
+  .row {
+    height: calc(60vw / 3.35);
+    width: 100%;
+    margin: 0 !important;
+    opacity: 0;
+    gap: var(--gap);
+    flex-wrap: nowrap !important;
+  }
+}
 .row > .wide {
   flex: 2;
 }
@@ -238,6 +253,11 @@ export default class Home extends Vue {
 }
 #row-1 > .wide > .block {
   background: var(--background);
+}
+@media screen and (min-width: 600px) and (max-width: 960px) {
+  #row-1 > .wide > .block {
+    padding: 20px 30px;
+  }
 }
 #b0 {
   border: solid 3.5px var(--background);
@@ -315,7 +335,7 @@ iframe {
   border: none;
   height: 100%;
   aspect-ratio: 0.5;
-  transform: scale(.96);
+  transform: scale(0.96);
 }
 .embed > #app {
   padding: 1px;

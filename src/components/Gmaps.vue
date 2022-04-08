@@ -5,7 +5,7 @@ div
     :center='mapCenter',
     :zoom='mapZoom',
     ref='mapRef',
-    style='height: 25vh; clear: left; z-index: 1; bottom: 0'
+    style='clear: left; z-index: 1; bottom: 0'
   )
     gmap-marker(
       v-for='(m, i) in markers',
@@ -82,5 +82,13 @@ export default class Gmaps extends Vue {
 }
 .gmnoprint {
   display: none;
+}
+#map {
+  height: 25vh;
+}
+@media screen and (min-width: 600px) and (max-width: 960px) {
+  #map {
+    height: 20vh;
+  }
 }
 </style>
