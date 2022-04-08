@@ -4,8 +4,8 @@
 )
   // Main content
   .hidden-md-and-up
-    h1.mt-4 Charging Session
-    Gmaps#map.mt-3
+    h1 Charging Session
+    Gmaps#map.mt-6
     v-layout.mt-6(column)
       v-row#row-1(:style='"opacity:" + opacity')
         .wide
@@ -47,10 +47,10 @@
       style='margin: auto; height: 80vh; width: calc(80vh * 0.49); z-index: 10000',
       :src='require("@/assets/mockup-w_x2.png")'
     )
-      .pa-4.pt-0.pl-6.d-flex.justify-center(
+      .pa-4.pt-0.d-flex.justify-center(
         style='height: 100%; border-radius: 20px'
       )
-        iframe.embed(scrolling='no', src='https://kniazevgeny.github.io/echarge/')
+        iframe.embed(scrolling='no', src='/')
 </template>
 
 <script lang="ts">
@@ -314,27 +314,16 @@ export default class Home extends Vue {
 iframe {
   border: none;
   height: 100%;
-  aspect-ratio: 0.55;
-  transform: scale(0.85);
-}
-@media screen and (min-width: 1300px) {
-  iframe {
-    border: none;
-    height: 100%;
-    aspect-ratio: 0.55;
-  }
-}
-@media screen and (min-height: 1300px) {
-  iframe {
-    border: none;
-    height: 100%;
-    aspect-ratio: 0.55;
-  }
+  aspect-ratio: 0.5;
+  transform: scale(0.92);
 }
 .embed > #app {
   padding: 1px;
 }
 html {
   overflow-y: hidden !important;
+}
+.vue-map {
+  border-radius: 17px;
 }
 </style>
