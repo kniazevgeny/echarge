@@ -1,7 +1,7 @@
 <template lang="pug">
 v-app(
-  :dark='$store.state.dark',
-  :class='$store.state.dark ? "grey darken-4" : "grey lighten-4"'
+  :dark='false',
+  :class='false ? "grey darken-4" : "grey lighten-4"'
 )
   //- Navbar
   Snackbar
@@ -23,7 +23,7 @@ const SnackbarStore = namespace('SnackbarStore')
 
 @Component({ components: { Navbar, Snackbar } })
 export default class App extends Vue {
-  @AppStore.State dark!: boolean
+  dark = false
   @SnackbarStore.Mutation hideSnackbar!: () => void
 
   get style() {
@@ -42,7 +42,7 @@ export default class App extends Vue {
 
     this.hideSnackbar()
 
-    document.title = i18n.t('title') as string
+    // document.title = i18n.t('title') as string
   }
 
   get metaInfo() {
