@@ -1,44 +1,52 @@
 <template lang="pug">
-.v-container.pa-4
+.v-container.pa-4.d-flex.justify-center(style="height: 100%; align-items: center")
   // Main content
-  h1 Charging Session
-  Gmaps#map.mt-3
-  v-layout.mt-6(column)
-    v-row#row-1(:style='"opacity:" + opacity')
-      .wide
-        .block
-          #b0
-            #b1
-              #b2
-                #b3 {{ battery }}%
-      div
-        #cost.block
-          h4 {{ cost }}$
-    v-row#row-2(:style='"opacity:" + opacity')
-      div
-        .block
-          h4 current charging speed
-      div
-        .block
-          h4 energy delivered
-      div
-        .block
-          h4 CO2 emissions savings
-    v-row#row-3(:style='"opacity:" + opacity')
-      div
-        #inverted.block
-          h4 # mins until full charge
-      .wide
-        .block
-          v-sparkline(
-            v-if='isSparklineReady',
-            :value='sparklineValue',
-            smooth,
-            auto-draw,
-            :line-width='10',
-            stroke-linecap='round',
-            :gradient='gradient'
-          )
+  .hidden-md-and-up
+    h1.mt-4 Charging Session
+    Gmaps#map.mt-3
+    v-layout.mt-6(column)
+      v-row#row-1(:style='"opacity:" + opacity')
+        .wide
+          .block
+            #b0
+              #b1
+                #b2
+                  #b3 {{ battery }}%
+        div
+          #cost.block
+            h4 {{ cost }}$
+      v-row#row-2(:style='"opacity:" + opacity')
+        div
+          .block
+            h4 current charging speed
+        div
+          .block
+            h4 energy delivered
+        div
+          .block
+            h4 CO2 emissions savings
+      v-row#row-3(:style='"opacity:" + opacity')
+        div
+          #inverted.block
+            h4 # mins until full charge
+        .wide
+          .block
+            v-sparkline(
+              v-if='isSparklineReady',
+              :value='sparklineValue',
+              smooth,
+              auto-draw,
+              :line-width='10',
+              stroke-linecap='round',
+              :gradient='gradient'
+            )
+  .hidden-sm-and-down
+    v-img(
+      style='margin: auto; height: 80vh; width: calc(80vh * 0.49); z-index: 10000',
+      :src='require("@/assets/mockup-w_x2.png")'
+    )
+      div.pa-4.pt-0.d-flex.justify-center(style="height: 100%;border-radius: 20px")
+        iframe(src='/')
 </template>
 
 <script lang="ts">
@@ -295,5 +303,14 @@ export default class Home extends Vue {
   font-weight: 600;
   color: var(--accent);
   letter-spacing: -7px;
+}
+.v-image__image {
+  z-index: 1000 !important;
+}
+iframe {
+  border: none;
+  height: 100%;
+  aspect-ratio: 0.57;
+  transform: scale(0.85);
 }
 </style>
