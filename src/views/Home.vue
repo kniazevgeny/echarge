@@ -46,7 +46,7 @@
       :src='require("@/assets/mockup-w_x2.png")'
     )
       div.pa-4.pt-0.pl-6.d-flex.justify-center(style="height: 100%;border-radius: 20px")
-        iframe(src='/')
+        iframe(src='https://kniazevgeny.github.io/echarge/')
 </template>
 
 <script lang="ts">
