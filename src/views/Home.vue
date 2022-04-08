@@ -334,4 +334,7 @@ iframe {
 .embed > #app {
   padding: 1px;
 }
+html {
+  overflow-y: hidden !important;
+}
 </style>
