@@ -46,7 +46,7 @@
             )
   .hidden-sm-and-down.mt-n12
     v-img(
-      style='margin: auto; height: 80vh; width: calc(80vh * 0.49); z-index: 10000',
+      style='margin: auto; height: 80vh; width: calc(80vh * 0.49); border-raduis: 64px !important',
       :src='require("@/assets/mockup-w_x2.png")'
     )
       .pa-4.pt-8.d-flex.justify-center(
@@ -344,5 +344,9 @@ html {
 }
 .vue-map {
   border-radius: 17px;
+}
+.v-image {
+  border-radius: 58px;
+  box-shadow: 30px 30px 60px #c9c9c9, -30px -30px 60px #ffffff;
 }
 </style>
