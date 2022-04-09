@@ -50,7 +50,7 @@
       :src='require("@/assets/mockup-wh_x2.png")'
     )
       .d-flex.justify-center(
-        style='height: 100%; border-radius: 20px'
+        style='height: 100%'
       )
         iframe.embed(
           scrolling='no',
@@ -333,7 +333,7 @@ iframe {
   border: none;
   height: 100%;
   aspect-ratio: 0.5;
-  transform: scale(0.9);
+  transform: scale(0.88);
   border-radius: 20px;
 }
 .embed > #app {
