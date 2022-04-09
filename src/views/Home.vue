@@ -46,10 +46,10 @@
             )
   .hidden-sm-and-down.mt-n12
     v-img(
-      style='margin: auto; height: 80vh; width: calc(80vh * 0.49); border-raduis: 64px !important',
-      :src='require("@/assets/mockup-w_x2.png")'
+      style='margin: auto; height: 80vh; width: calc(80vh * 0.49)',
+      :src='require("@/assets/mockup-wh_x2.png")'
     )
-      .pa-4.pt-8.d-flex.justify-center(
+      .d-flex.justify-center(
         style='height: 100%; border-radius: 20px'
       )
         iframe.embed(
@@ -333,8 +333,8 @@ iframe {
   border: none;
   height: 100%;
   aspect-ratio: 0.5;
-  transform: scale(0.92);
-  border-radius: 80px;
+  transform: scale(0.9);
+  border-radius: 20px;
 }
 .embed > #app {
   padding: 1px;
@@ -346,7 +346,6 @@ html {
   border-radius: 17px;
 }
 .v-image {
-  border-radius: 58px;
-  box-shadow: 30px 30px 60px #c9c9c9, -30px -30px 60px #ffffff;
+  filter: drop-shadow(15px 20px 30px #a8a8a8)
 }
 </style>
