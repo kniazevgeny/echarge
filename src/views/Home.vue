@@ -4,7 +4,7 @@
 )
   // Main content
   .hidden-md-and-up(
-    :style='$vuetify.breakpoint.name === "sm" ? "margin: 0 21%; transform: scale(1.25)" : ""'
+    :style='$vuetify.breakpoint.name === "sm" ? "margin: 0 21%; transform: scale(1.25)" : "max-width: 100%"'
   )
     h1 Charging Session
     Gmaps#map.mt-6
@@ -210,6 +210,11 @@ export default class Home extends Vue {
   align-self: center;
   justify-self: center;
 }
+@media screen and (min-width: 960px) and (max-width: 1300px) {
+  .block > h4 {
+    font-size: min(11px, .9em) !important;
+  }
+}
 #inverted {
   background: #333;
   color: white;
@@ -322,7 +327,7 @@ export default class Home extends Vue {
   justify-content: center;
   height: 100%;
   align-items: center;
-  font-size: 2.5em;
+  font-size: min(2.5em, 30px);
   font-family: 'helios';
   font-weight: 600;
   color: var(--accent);
