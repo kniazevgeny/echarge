@@ -21,29 +21,21 @@
             h4 {{ cost }}$
       v-row#row-2(:style='"opacity:" + opacity')
         div
-          .block
-            h4 current charging speed
+          .chiffre.block
+            h4 {{ (deltaEnergyChange * 1000).toFixed(1) }} kWh/s
+        div
+          .chiffre.block
+            h4 {{ energyDelivered }} kWh
         div
           .block
-            h4 energy delivered
-        div
-          .block
-            h4 CO2 emissions savings
+            h4 CO2 emissions savings: {{pounds}} pounds
       v-row#row-3(:style='"opacity:" + opacity')
         div
           #inverted.block
             h4 # mins until full charge
         .wide
           .block
-            v-sparkline(
-              v-if='isSparklineReady',
-              :value='sparklineValue',
-              smooth,
-              auto-draw,
-              :line-width='10',
-              stroke-linecap='round',
-              :gradient='gradient'
-            )
+            
   .hidden-sm-and-down.mt-n12
     v-img(
       style='margin: auto; height: 80vh; width: calc(80vh * 0.49)',
@@ -78,10 +70,6 @@ const SnackbarStore = namespace('SnackbarStore')
 })
 export default class Home extends Vue {
   @SnackbarStore.Mutation setSnackbarError!: (error: string) => void
-
-  sparklineValue = [0, 2, 3, 3.5, 4.5, 6, 7, 7.5]
-  isSparklineReady = false
-  gradient = ['#f72047', '#ffd200', '#1feaea']
 
   opacity = 0
 
@@ -122,9 +110,23 @@ export default class Home extends Vue {
     return b[0] + ' ' + b[1] + ' '
   }
 
-  tweenedCost = 0
+  costPerkWh = 0.31 // $
+  poundsPerkWh = 0.85 // pounds of CO2 saved
   get cost() {
-    return this.tweenedCost.toFixed(1)
+    return (this.tweenedenergyDelivered * this.costPerkWh).toFixed(1)
+  }
+
+  get pounds() {
+    return (this.tweenedenergyDelivered * this.poundsPerkWh).toFixed(1)
+  }
+
+  timestamp = 0
+  deltaEnergyChange_ = 0
+  deltaEnergyChange = 0
+
+  tweenedenergyDelivered = 0
+  get energyDelivered() {
+    return this.tweenedenergyDelivered.toFixed(1)
   }
 
   mounted() {
@@ -142,24 +144,16 @@ export default class Home extends Vue {
       this.opacity = 1
     }, 500)
 
-    // Animate Sparkline
-    window.setTimeout(() => {
-      this.isSparklineReady = true
-    }, 850)
-
     // Update Sparkline
     window.setTimeout(() => {
-      window.setInterval(() => {
-        if (this.sparklineValue[this.sparklineValue.length - 1] > 16) return
-        let factor = Math.random() + 0.55
-        this.sparklineValue.push(
-          this.sparklineValue[this.sparklineValue.length - 1] *
-            (factor < 1 ? 1.15 : factor)
-        )
-      }, 2200)
-      gsap.to(this.$data, { duration: 10, tweenedCost: 5 })
-      gsap.to(this.$data, { duration: 10, tweenedBattery: 100 })
+      gsap.to(this.$data, { duration: 20, tweenedenergyDelivered: 60 })
+      gsap.to(this.$data, { duration: 20, tweenedBattery: 100 })
     }, 1200)
+
+    window.setInterval(() => {
+      let to = this.deltaEnergyChange_
+       gsap.to(this.$data, { duration: 0.45, deltaEnergyChange: to })
+    }, 500)
   }
 
   get isWindowHashCorrect() {
@@ -167,19 +161,17 @@ export default class Home extends Vue {
     return window.location.hash === '#rec422536037'
   }
 
-  @Watch('sparklineValue')
-  onSparklineValueChange() {
-    if (this.sparklineValue[this.sparklineValue.length - 1] > 16) {
-      window.clearInterval()
-      this.gradient = ['#2af', '#3ff']
-    }
-  }
-
   @Watch('isWindowHashCorrect')
   onLoad(value: boolean) {
     if (!value) return
 
     window.setTimeout(this.animate, 500)
+  }
+
+  @Watch('tweenedenergyDelivered')
+  onTweenedenergyDeliveredChange(value: number, oldValue: number) {
+    this.deltaEnergyChange_ = (value - oldValue) / (Date.now() - this.timestamp)
+    this.timestamp = Date.now()
   }
 }
 </script>
@@ -227,6 +219,9 @@ export default class Home extends Vue {
   background: -webkit-linear-gradient(135deg, #2af, #3ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.chiffre > h4 {
+  font-size: 1.5rem;
 }
 .row {
   height: calc(100vw / 3.35);
@@ -331,7 +326,7 @@ export default class Home extends Vue {
   font-family: 'helios';
   font-weight: 600;
   color: var(--accent);
-  letter-spacing: -7px;
+  letter-spacing: -5px;
 }
 
 iframe {
