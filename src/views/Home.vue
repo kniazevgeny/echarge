@@ -17,33 +17,45 @@
                 #b2
                   #b3 {{ battery }}%
         div
-          #cost.block
-            h4 {{ cost }}$
+          #inverted.block
+            .chiffre
+              h4 {{ parseInt(minutesUntilFullCharge) }}
+              p.measure minutes
+            p.description until full charge
       v-row#row-2(:style='"opacity:" + opacity')
         div
-          .chiffre.block
-            h4 {{ (deltaEnergyChange * 1000).toFixed(1) }} kWh/s
-        div
-          .chiffre.block
-            h4 {{ energyDelivered }} kWh
+          .block
+            .chiffre
+              h4 {{ (deltaEnergyChange * 1000).toFixed(1) }}
+              p.measure kWh/min
+            p.description Charging speed
         div
           .block
-            h4 CO2 emissions savings: {{pounds}} pounds
+            .chiffre
+              h4 {{ energyDelivered }}
+              p.measure kWh
+            p.description Energy Delivered
+        div
+          .block
+            .chiffre
+              h4 {{ pounds }}
+              p.measure pounds
+            p.description CO2 emissions savings
       v-row#row-3(:style='"opacity:" + opacity')
         div
-          #inverted.block
-            h4 # mins until full charge
+          #cost.block
+            h4 {{ cost }}$
         .wide
           .block
-            
+            p(v-if='cost != "18.6"') stop and proceed to checkout
+            p(v-else) proceed to checkout
+
   .hidden-sm-and-down.mt-n12
     v-img(
       style='margin: auto; height: 80vh; width: calc(80vh * 0.49)',
       :src='require("@/assets/mockup-wh_x2.png")'
     )
-      .d-flex.justify-center(
-        style='height: 100%'
-      )
+      .d-flex.justify-center(style='height: 100%')
         iframe.embed(
           scrolling='no',
           src='https://kniazevgeny.github.io/echarge/'
@@ -124,6 +136,8 @@ export default class Home extends Vue {
   deltaEnergyChange_ = 0
   deltaEnergyChange = 0
 
+  minutesUntilFullCharge = 20
+
   tweenedenergyDelivered = 0
   get energyDelivered() {
     return this.tweenedenergyDelivered.toFixed(1)
@@ -151,8 +165,13 @@ export default class Home extends Vue {
     }, 1200)
 
     window.setInterval(() => {
+      if (this.minutesUntilFullCharge <= 0) return
+      this.minutesUntilFullCharge -= 1
+    }, 1000)
+
+    window.setInterval(() => {
       let to = this.deltaEnergyChange_
-       gsap.to(this.$data, { duration: 0.45, deltaEnergyChange: to })
+      gsap.to(this.$data, { duration: 0.45, deltaEnergyChange: to })
     }, 500)
   }
 
@@ -182,6 +201,7 @@ export default class Home extends Vue {
   gap: var(--gap);
 }
 .block {
+  position: relative;
   background: #eee;
   border-radius: 15px;
   padding: 10px;
@@ -204,12 +224,15 @@ export default class Home extends Vue {
 }
 @media screen and (min-width: 960px) and (max-width: 1300px) {
   .block > h4 {
-    font-size: min(11px, .9em) !important;
+    font-size: min(11px, 0.9em) !important;
   }
 }
 #inverted {
   background: #333;
   color: white;
+}
+#inverted > .chiffre > .measure {
+  font-weight: 400;
 }
 #cost {
   justify-content: center;
@@ -223,8 +246,23 @@ export default class Home extends Vue {
 .chiffre > h4 {
   font-size: 1.5rem;
 }
+.description {
+  position: absolute;
+  bottom: 8px;
+  font-family: 'helios';
+  line-height: 1em;
+  font-size: 0.7rem;
+  padding-right: 10px;
+  margin-bottom: 0px !important;
+}
+.measure {
+  font-family: 'helios';
+  font-size: 100%;
+  margin-top: -8px;
+  font-weight: 600;
+}
 .row {
-  height: calc(100vw / 3.35);
+  height: calc(100vw / 3.45);
   width: 100%;
   margin: 0 !important;
   opacity: 0;
@@ -246,6 +284,9 @@ export default class Home extends Vue {
 }
 .row > div:not(.wide) {
   flex: 1;
+}
+.row > div {
+  aspect-ratio: 1;
 }
 :root {
   --background: #eee;
@@ -346,6 +387,6 @@ html {
   border-radius: 17px;
 }
 .v-image {
-  filter: drop-shadow(15px 20px 30px #a8a8a8)
+  filter: drop-shadow(15px 20px 30px #a8a8a8);
 }
 </style>
